@@ -4,8 +4,8 @@ import {
     ContractWrapper,
     setupInteractive,
     SystemWrapper,
-} from '@dharitrinetwork/erdjs/out';
-import { TestWallet } from '@dharitrinetwork/erdjs/out/testutils';
+} from '@dharitrinetwork/moajs/out';
+import { TestWallet } from '@dharitrinetwork/moajs/out/testutils';
 import { GasPayerDto } from 'model/gasPayerDto';
 import { AddressDto } from 'model/addressDto';
 import { ApiConfigService } from './apiConfigService';
@@ -13,7 +13,7 @@ import { StorageService } from './storage.service';
 
 export async function makeWallet(
     gasPayerDto: GasPayerDto,
-    erdSys: SystemWrapper,
+    moaSys: SystemWrapper,
 ): Promise<TestWallet> {
     const wallet = new TestWallet(
         new Address(gasPayerDto.gasPayer),
@@ -21,25 +21,25 @@ export async function makeWallet(
         null,
         null,
     );
-    await wallet.sync(erdSys.getProvider());
+    await wallet.sync(moaSys.getProvider());
     return wallet;
 }
 
 export async function prepareContract(
     addressDto: AddressDto,
-    erdSys: SystemWrapper,
+    moaSys: SystemWrapper,
     contract: ContractWrapper,
 ): Promise<void> {
-    const wallet = await makeWallet(addressDto, erdSys);
+    const wallet = await makeWallet(addressDto, moaSys);
     contract.address(addressDto.address).sender(wallet);
 }
 
 export async function loadContracts(config: ApiConfigService) {
-    const { erdSys } = await setupInteractive(config.networkProvider);
-    const jobContract = await erdSys.loadWrapper('../job');
-    const factoryContract = await erdSys.loadWrapper('../job-factory');
-    const humanToken = await erdSys.recallToken(config.humanTokenIdentifier);
-    return { erdSys, jobContract, factoryContract, humanToken };
+    const { moaSys } = await setupInteractive(config.networkProvider);
+    const jobContract = await moaSys.loadWrapper('../job');
+    const factoryContract = await moaSys.loadWrapper('../job-factory');
+    const humanToken = await moaSys.recallToken(config.humanTokenIdentifier);
+    return { moaSys, jobContract, factoryContract, humanToken };
 }
 
 export async function getJsonFromUrl(url: string): Promise<any> {

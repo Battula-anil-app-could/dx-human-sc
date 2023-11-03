@@ -1,7 +1,7 @@
 global.setup = async (networkChoice) => {
-    global.erdjs = require('@dharitrinetwork/erdjs');
-    let { erdSys, wallets } = await erdjs.setupInteractive(networkChoice);
-    global.erdSys = erdSys;
+    global.moajs = require('@dharitrinetwork/moajs');
+    let { moaSys, wallets } = await moajs.setupInteractive(networkChoice);
+    global.moaSys = moaSys;
     for (walletName in wallets) {
         global[walletName] = wallets[walletName];
     }
@@ -15,17 +15,17 @@ global.issueToken = async (
     identifier = 'HMT',
     decimals = 18
 ) => {
-    let unissuedToken = erdjs.createBalanceBuilder(new erdjs.Token({ identifier, name, decimals, type: erdjs.TokenType.Fungible }));
-    global.humanToken = await erdSys.sender(owner).issueFungible(name, identifier, unissuedToken(initialAmount), decimals);
+    let unissuedToken = moajs.createBalanceBuilder(new moajs.Token({ identifier, name, decimals, type: moajs.TokenType.Fungible }));
+    global.humanToken = await moaSys.sender(owner).issueFungible(name, identifier, unissuedToken(initialAmount), decimals);
     console.log(`Add the token identifier to config.env:\nHUMAN_TOKEN_IDENTIFIER=${humanToken.getTokenIdentifier()}`);
 }
 
 global.recallToken = async (tokenIdentifier) => {
-    global.humanToken = await erdSys.recallToken(tokenIdentifier);
+    global.humanToken = await moaSys.recallToken(tokenIdentifier);
 }
 
 global.deployJobTemplate = async (owner) => {
-    let job = await erdSys.loadWrapper("job");
+    let job = await moaSys.loadWrapper("job");
     await job.sender(owner).gas(130_000_000).call.deploy('-', owner, 0);
     console.log(`Add this to the config.env:\nJOB_TEMPLATE_ADDRESS=${job.getAddress().bech32()}`);
 }
@@ -36,9 +36,9 @@ global.printKeys = (wallet) => {
 }
 
 global.transferToken = async (from, to, amount) => {
-    await erdSys.sender(from).value(humanToken(amount)).send(to);
+    await moaSys.sender(from).value(humanToken(amount)).send(to);
 }
 
 global.checkBalance = async (wallet) => {
-    await erdSys.getBalance(wallet, humanToken).then(erdjs.print);
+    await moaSys.getBalance(wallet, humanToken).then(moajs.print);
 }

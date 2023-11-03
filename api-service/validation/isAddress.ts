@@ -1,4 +1,4 @@
-import { Address } from '@dharitrinetwork/erdjs';
+import { Address } from '@dharitrinetwork/moajs';
 import { buildMessage, ValidateBy, ValidationOptions } from 'class-validator';
 
 export function isAddress(value: unknown): boolean {

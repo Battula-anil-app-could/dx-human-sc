@@ -34,7 +34,7 @@ Console functions
 
 After starting a console via `script/contracts/console`, the following functions may be called:
 
-- `setup(networkChoice)` - initializes erdjs (callable with `'local-testnet'`, `'dharitri-testnet'`, `'dharitri-devnet'` or `'dharitri-mainnet'`)
+- `setup(networkChoice)` - initializes moajs (callable with `'local-testnet'`, `'dharitri-testnet'`, `'dharitri-devnet'` or `'dharitri-mainnet'`)
 - `issueToken(owner, initialAmount, name = 'HumanToken', identifier = 'HMT', decimals = 18)` - issues the Human Token
 - `recallToken(tokenIdentifier)` - recalls the Human Token (if already deployed)
 - `deployJobTemplate(owner)` - deploys the job contract as a template and prints information for `config.env`
@@ -126,7 +126,7 @@ Use the `POST /factory` endpoint with the following payload to create a new fact
 The keys are from the `alice` test wallet.
 ```json
 {
-  "gasPayer": "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+  "gasPayer": "moa1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssfq94h8",
   "gasPayerPrivate": "413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9"
 }
 ```
@@ -136,9 +136,9 @@ The keys are from the `alice` test wallet.
 When calling the `POST /job` endpoint, use:
 ```json
 {
-  "gasPayer": "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+  "gasPayer": "moa1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssfq94h8",
   "gasPayerPrivate": "413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9",
-  "factoryAddress": "erd1qqqqqqqqqqqqqpgqygvvtlty3v7cad507v5z793duw9jjmlxd8sszs8a2y",
+  "factoryAddress": "moa1qqqqqqqqqqqqqpgqygvvtlty3v7cad507v5z793duw9jjmlxd8ss0gpjk5",
   "repOraclePub":"552e2b308514b38e4989d71ed263e0af6376f65ba81a94ebb74f6fadc223ee80aa8fb710cfb445e0871cd1c1a0c1f2adb2b6eedc2a0470b04244548c5be518c8",
   "manifestUrl": "https://pastebin.com/raw/YVw3qhcf"
 }
@@ -149,8 +149,8 @@ Note: The manifest for creating a new factory should look like this:
 {
   "task_bid_price": "50",
   "job_total_tasks": "10",
-  "reputation_oracle_addr": "erd1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq6mjse8",
-  "recording_oracle_addr": "erd1kyaqzaprcdnv4luvanah0gfxzzsnpaygsy6pytrexll2urtd05ts9vegu7",
+  "reputation_oracle_addr": "moa1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaqhr5l9h",
+  "recording_oracle_addr": "moa1kyaqzaprcdnv4luvanah0gfxzzsnpaygsy6pytrexll2urtd05tsg5l8qw",
   "oracle_stake": "3"
 }
 ```
@@ -159,9 +159,9 @@ The reputation oracle are those of test wallet `carol` and `dan`.
 Payouts can be done via `POST /job/bulkPayout`, with:
 ```json
 {
-  "gasPayer": "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+  "gasPayer": "moa1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssfq94h8",
   "gasPayerPrivate": "413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9",
-  "address": "erd1qqqqqqqqqqqqqpgq0ddexy8ahtknt3zwg99nfcn6965ydgu4d8ssa2m4h3",
+  "address": "moa1qqqqqqqqqqqqqpgq0ddexy8ahtknt3zwg99nfcn6965ydgu4d8sssja6tp",
   "repOraclePub": "552e2b308514b38e4989d71ed263e0af6376f65ba81a94ebb74f6fadc223ee80aa8fb710cfb445e0871cd1c1a0c1f2adb2b6eedc2a0470b04244548c5be518c8",
   "resultsUrl": "https://pastebin.com/raw/TQVKT8b1",
   "payoutsUrl": "https://pastebin.com/raw/VKssHk0p"
@@ -171,8 +171,8 @@ Payouts can be done via `POST /job/bulkPayout`, with:
 For the bulk payouts, the payments should be a list of `(address, amount)` pairs, such as:
 ```json
 [
-  ["erd18tudnj2z8vjh0339yu3vrkgzz2jpz8mjq0uhgnmklnap6z33qqeszq2yn4", "100"],
-  ["erd1kdl46yctawygtwg2k462307dmz2v55c605737dp3zkxh04sct7asqylhyv", "400"]
+  ["moa18tudnj2z8vjh0339yu3vrkgzz2jpz8mjq0uhgnmklnap6z33qqes0cvt09", "100"],
+  ["moa1kdl46yctawygtwg2k462307dmz2v55c605737dp3zkxh04sct7asdueccu", "400"]
 ]
 ```
 The addresses are those of test wallets' `eve` and `frank`.
@@ -198,11 +198,11 @@ The `eve` and `frank` wallets got the sums described at the payouts URL, minus t
 
 Accessing `GET /job/finalResults` with:
 
-`gasPayer=erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th`
+`gasPayer=moa1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssfq94h8`
 
 `gasPayerPrivate=413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9`
 
-`address=erd1qqqqqqqqqqqqqpgq0ddexy8ahtknt3zwg99nfcn6965ydgu4d8ssa2m4h3`
+`address=moa1qqqqqqqqqqqqqpgq0ddexy8ahtknt3zwg99nfcn6965ydgu4d8sssja6tp`
 
 `repOraclePrivate=27f07d3251dee39ec2c5ff800641f4d839e6f8065033e9a710ea2e519473bdd7`
 

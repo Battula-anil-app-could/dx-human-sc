@@ -1,6 +1,6 @@
 import { ExceptionFilter, Catch, ArgumentsHost } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { Err } from '@dharitrinetwork/erdjs';
+import { Err } from '@dharitrinetwork/moajs';
 
 @Catch(Err)
 export class ErrFilter implements ExceptionFilter {

@@ -2,7 +2,7 @@ import {
     Address,
     ContractWrapper,
     SystemWrapper,
-} from '@dharitrinetwork/erdjs/out';
+} from '@dharitrinetwork/moajs/out';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { FactoryGetBody } from 'model/factoryGetBody';
 import { GasPayerDto } from 'model/gasPayerDto';
@@ -14,19 +14,19 @@ import { ApiConfigService } from './apiConfigService';
 
 @Injectable()
 export class FactoryService implements OnModuleInit {
-    erdSys: SystemWrapper;
+    moaSys: SystemWrapper;
     factoryContract: ContractWrapper;
 
     constructor(private config: ApiConfigService) {}
 
     async onModuleInit() {
-        const { erdSys, factoryContract } = await loadContracts(this.config);
-        this.erdSys = erdSys;
+        const { moaSys, factoryContract } = await loadContracts(this.config);
+        this.moaSys = moaSys;
         this.factoryContract = factoryContract;
     }
 
     private async prepareFactory(addressDto: AddressDto): Promise<void> {
-        await prepareContract(addressDto, this.erdSys, this.factoryContract);
+        await prepareContract(addressDto, this.moaSys, this.factoryContract);
     }
 
     async getFactory(factoryGetBody: FactoryGetBody): Promise<JobListResponse> {
@@ -38,7 +38,7 @@ export class FactoryService implements OnModuleInit {
     }
 
     async newFactory(gasPayerDto: GasPayerDto): Promise<StringDataResponse> {
-        const wallet = await makeWallet(gasPayerDto, this.erdSys);
+        const wallet = await makeWallet(gasPayerDto, this.moaSys);
         await this.factoryContract
             .sender(wallet)
             .gas(this.config.gasFactoryDeploy)

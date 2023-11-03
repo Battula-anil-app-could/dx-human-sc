@@ -14,7 +14,7 @@ import {
     BalanceBuilder,
     ContractWrapper,
     SystemWrapper,
-} from '@dharitrinetwork/erdjs/out';
+} from '@dharitrinetwork/moajs/out';
 import {
     getJsonFromUrl,
     loadContracts,
@@ -28,7 +28,7 @@ import { ApiConfigService } from './apiConfigService';
 
 @Injectable()
 export class JobService implements OnModuleInit {
-    erdSys: SystemWrapper;
+    moaSys: SystemWrapper;
     jobContract: ContractWrapper;
     factoryContract: ContractWrapper;
     humanToken: BalanceBuilder;
@@ -39,16 +39,16 @@ export class JobService implements OnModuleInit {
     ) {}
 
     async onModuleInit() {
-        const { erdSys, jobContract, factoryContract, humanToken } =
+        const { moaSys, jobContract, factoryContract, humanToken } =
             await loadContracts(this.config);
-        this.erdSys = erdSys;
+        this.moaSys = moaSys;
         this.jobContract = jobContract;
         this.factoryContract = factoryContract;
         this.humanToken = humanToken;
     }
 
     async newJob(jobCreateBody: JobCreateBody): Promise<StringDataResponse> {
-        const wallet = await makeWallet(jobCreateBody, this.erdSys);
+        const wallet = await makeWallet(jobCreateBody, this.moaSys);
 
         const jobAddress = await this.factoryContract
             .address(jobCreateBody.factoryAddress)
@@ -96,7 +96,7 @@ export class JobService implements OnModuleInit {
     }
 
     private async prepareJob(addressDto: AddressDto): Promise<void> {
-        await prepareContract(addressDto, this.erdSys, this.jobContract);
+        await prepareContract(addressDto, this.moaSys, this.jobContract);
     }
 
     async launcher(addressDto: AddressDto): Promise<StringDataResponse> {

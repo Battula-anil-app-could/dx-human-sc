@@ -1,4 +1,4 @@
-import { UserSecretKey } from '@dharitrinetwork/erdjs';
+import { UserSecretKey } from '@dharitrinetwork/moajs';
 import { buildMessage, ValidateBy, ValidationOptions } from 'class-validator';
 
 export function isWalletPrivateKeyHex(value: unknown): boolean {
